@@ -4,6 +4,10 @@
       "main": "src/day_1_backend/main.mo",
       "type": "motoko"
     },
+    "day_2_backend": {
+      "main": "src/day_2_backend/main.mo",
+      "type": "motoko"
+    },
     "day_1_frontend": {
       "dependencies": [
         "day_1_backend"
