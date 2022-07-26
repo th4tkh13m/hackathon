@@ -45,6 +45,18 @@ actor {
         return t;
     };
 
+    //challenge 5
+  public func capitalize_text(c: Text) : async Text {
+    var t : Char = ' ';
+    var a : Text = "";
+
+    for(temp in c.chars()){
+      t := await capitalize_character(temp);
+      a #= Char.toText(t);
+    };
+    return a;
+  };
+
     //challenge 6
   public func is_inside_string(s: Text, c: Char) : async Bool {
       let t : Char = c;
