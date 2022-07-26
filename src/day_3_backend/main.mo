@@ -1,5 +1,4 @@
-actor {
-    import Custom "custom";
+import Custom "custom";
 import Animal "animal";
 import List "mo:base/List";
 
@@ -39,4 +38,3 @@ actor {
     return (List.toArray(list));
   };
 };
-}
