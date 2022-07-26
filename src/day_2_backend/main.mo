@@ -180,12 +180,12 @@ actor {
     return false;
   };
 
-  public func test() : async Bool{
-    let list = ["a", "b", "c"];
-    let a = "d";
-    let eqA = func(x : Text, y : Text) : Bool{
-      return (x==y);
-    };
-    await contains(eqA, a, list);
-  };
+  // public func test() : async Bool{
+  //   let list = ["a", "b", "c"];
+  //   let a = "d";
+  //   let eqA = func(x : Text, y : Text) : Bool{
+  //     return (x==y);
+  //   };
+  //   await contains(eqA, a, list);
+  // };
 }
