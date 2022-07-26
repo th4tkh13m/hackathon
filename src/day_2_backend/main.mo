@@ -45,6 +45,15 @@ actor {
         return t;
     };
 
+    //challenge 6
+  public func is_inside_string(s: Text, c: Char) : async Bool {
+      let t : Char = c;
+      for(temp in s.chars()){
+        if (Char.equal(t,temp)) return true;
+    };
+    return false;
+  };
+
     // Challenge 7
     public func  trim_whitespace(t : Text) : async Text {
         var a : Text = t;
@@ -61,6 +70,7 @@ actor {
       return t;
     };
 
+    // Challenge 9
     public func  size_in_bytes(text: Text) : async Nat {
       var a : Nat = 0;
       for (char in text.chars()) {
@@ -87,6 +97,53 @@ actor {
       return Array.freeze(new_arr);
     };
 
+    //challenge 11
+  public func  nat_opt_to_nat(n: ?Nat, m: Nat): async Nat{
+    switch(n){
+          // Case where n is null
+          case(null) {
+              return (m);
+          };
+          // Case where n is a nat
+          case(?n){
+              return (n);
+          };
+      };
+  }; 
+  
+  //challenge 12
+  public func day_of_the_week(n: Nat) : async ?Text {
+    do ? {
+      switch n {
+        case (1) { "Monday" };
+        case (2) { "Tuesday" };
+        case (3) { "Wednesday" };
+        case (4) { "Thursday" };
+        case (5) { "Friday" };
+        case (6) { "Saturday" };
+        case (7) { "Sunday" };
+        case (_) { null!};
+      };
+    };
+  };
+
+  //challenge 13
+  let f = func (n : ?Nat) : Nat {
+        switch(n){
+          // Case where n is null
+          case(null) {
+              return (0);
+          };
+          // Case where n is a nat
+          case(?n){
+              return (n);
+          };
+      };
+    };
+  public func populate_array(a: [?Nat]) : async [Nat]{
+    return Array.map<?Nat,Nat>(a,f);
+  }; 
+
     // Challenge 14
   public func sum_of_array(a : [Nat]) : async Nat{
     let iter = Iter.fromArray(a);
@@ -111,5 +168,24 @@ actor {
     return (Array.tabulate<Nat>(a.size(), func (i : Nat) : Nat{
       return (a[i] + i);
     }));
+  };
+
+    // Challenge17
+  func contains<A>(eqA : (A, A) -> Bool, element : A, list : [A]) : async Bool{
+    for (nat in list.vals()){
+      if(eqA(nat, element) == true){
+          return true;
+      };
+    };
+    return false;
+  };
+
+  public func test() : async Bool{
+    let list = ["a", "b", "c"];
+    let a = "d";
+    let eqA = func(x : Text, y : Text) : Bool{
+      return (x==y);
+    };
+    await contains(eqA, a, list);
   };
 }
