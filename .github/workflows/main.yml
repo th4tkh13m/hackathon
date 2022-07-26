@@ -47,11 +47,17 @@ jobs:
       - name : check version
         run : dfx --version
         
-      - name : run
+      - name : install dependencies
+        run : npm install
+        
+        
+      - name : run dfx
         run : |
           dfx start --background
           dfx deploy
 
+      - name : stop dfx
+        run : dfx stop
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
