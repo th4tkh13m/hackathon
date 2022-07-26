@@ -1,5 +1,11 @@
+import Buffer "mo:base/Buffer";
+import Char "mo:base/Char";
+import Hash "mo:base/Blob";
+import HashMap "mo:base/HashMap";
 import Nat "mo:base/Nat";
+import Nat16 "mo:base/Array";
 import Nat8 "mo:base/Nat8";
+import Text "mo:base/Text";
 
 actor {
 
@@ -26,5 +32,30 @@ actor {
             a := a / 2;
         };
         return res;
+    };
+
+    // Challenge 4
+    public func capitalize_character(c : Char) : async Char {
+        var t : Char = c;
+        if (Char.isLowercase(t)) {
+            return Char.fromNat32(Char.toNat32(t) - 32);
+        };
+        return t;
+    };
+
+    // Challenge 7
+    public func  trim_whitespace(t : Text) : async Text {
+        var a : Text = t;
+        return Text.trimEnd(Text.trimStart(t, #char ' '), #char ' ');
+    };
+
+    // Challenge 8
+    public func duplicated_character(t: Text) : async Text{
+      let hm = HashMap.HashMap<Text, Nat>(3, Text.equal, Text.hash);
+      for(char in t.chars()){
+        if (hm.get(Char.toText(char))==?1) return Char.toText(char);
+        hm.put(Char.toText(char),1);
+      };
+      return t;
     };
 }
