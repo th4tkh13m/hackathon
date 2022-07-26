@@ -85,5 +85,31 @@ actor {
         };
       };
       return Array.freeze(new_arr);
-    }
+    };
+
+    // Challenge 14
+  public func sum_of_array(a : [Nat]) : async Nat{
+    let iter = Iter.fromArray(a);
+    var sum = 0;
+    Iter.iterate<Nat>(iter, func(x, _index) {
+      sum += x;
+    });
+    return sum;
+  };
+
+  //challenge 15
+  
+  public func squared_array(a: [Nat]) : async [Nat]{
+    let f15 = func (n : Nat) : Nat {
+      return n*n;
+    };
+    return Array.map<Nat,Nat>(a,f15);
+  };
+
+    // Challenge 16
+    public func increase_by_index(a : [Nat]) : async [Nat]{
+    return (Array.tabulate<Nat>(a.size(), func (i : Nat) : Nat{
+      return (a[i] + i);
+    }));
+  };
 }
