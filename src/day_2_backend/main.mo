@@ -1,7 +1,9 @@
+import Array "mo:base/Array";
 import Buffer "mo:base/Buffer";
 import Char "mo:base/Char";
 import Hash "mo:base/Blob";
 import HashMap "mo:base/HashMap";
+import Iter "mo:base/Iter";
 import Nat "mo:base/Nat";
 import Nat16 "mo:base/Array";
 import Nat8 "mo:base/Nat8";
@@ -59,7 +61,29 @@ actor {
       return t;
     };
 
-    public func  size_in_bytes(text: Text) : async Nat{
-    return (Text.encodeUtf8(text).size());
-  }
+    public func  size_in_bytes(text: Text) : async Nat {
+      var a : Nat = 0;
+      for (char in text.chars()) {
+        a := a + (Text.encodeUtf8(Char.toText(char)).size());
+      };
+      return a;
+    };
+
+    // Challenge 10
+    public func bubble_sort(arr: [Nat]) : async [Nat] {
+      var is_sorted : Bool = false;
+      var new_arr : [var Nat] = Array.thaw(arr);
+      while (not is_sorted) {
+        is_sorted := true;
+        for (i in Iter.range(0, arr.size() - 2)) {
+          if (new_arr[i] > new_arr[i + 1]) {
+            is_sorted := false;
+            var temp : Nat = new_arr[i + 1];
+            new_arr[i + 1] := new_arr[i];
+            new_arr[i] := temp;
+          }
+        };
+      };
+      return Array.freeze(new_arr);
+    }
 }
