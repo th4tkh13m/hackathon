@@ -58,4 +58,8 @@ actor {
       };
       return t;
     };
+
+    public func  size_in_bytes(text: Text) : async Nat{
+    return (Text.encodeUtf8(text).size());
+  }
 }
