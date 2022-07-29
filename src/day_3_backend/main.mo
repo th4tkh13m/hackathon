@@ -116,19 +116,19 @@ actor {
   };
 
   public func available() : async Nat{
-    return Cycles.add();
+    return Cycles.available();
   };
 
   //challenge17 in Hard.mo
   public func test() : async () {
     Cycles.add(10000000000000);
-    let thisCanister = await Hard.CycleInCanister(10000000000);
+    let thisCanister = await CycleInCanister.CycleInCanister(10000000000);
     let anonymous : Principal = Principal.fromText("2vxsx-fae");
     await thisCanister.setApprove(anonymous,100000000);
     await withdraw_cycles(thisCanister,anonymous,100000000);
   };
 
-  public func withdraw_cycles(thisCanister: Hard.CycleInCanister, p : Principal, amout : Nat) : async(){
+  public func withdraw_cycles(thisCanister: CycleInCanister.CycleInCanister, p : Principal, amout : Nat) : async(){
     await thisCanister.transferFrom(p, amout); 
   };
   //  Challenge18
