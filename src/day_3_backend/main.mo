@@ -111,16 +111,44 @@ actor {
 
   // Challenge16
   public func deposit_cycles() : async Nat{
-    Cycles.accept(DEPOSIT_AMOUNT)
-    // return DEPOSIT_AMOUNT;
+    Cycles.add(DEPOSIT_AMOUNT);
+    return DEPOSIT_AMOUNT;
   };
 
   public func available() : async Nat{
-    return Cycles.balance();
+    return Cycles.add();
   };
 
-  //challenge17
-  
+  //challenge17 in Hard1.mo
+  public func approve(p: Pricipal, amout: Nat) : async(){
+    Lib.addApprove(p, amout);
+  };
 
+  public func withdraw_cycles(p : Principal, amout : Nat) : async(){
+    Lib.withdraw(p, amout);
+  };
+
+  //  Challenge18
+  stable var counter = 0;
+  stable var versionNumber = 0;
+  public func increment_counter(n : Nat) : async Nat {
+    counter += n;
+    return counter;
+  };
+
+  public func clear_counter() : async Nat {
+    counter := 0;
+    return counter
+  };
+  
+  system func postupgrade() {
+    versionNumber += 1;
+  };
+
+  public func get_version_number() : async Nat {
+    return versionNumber;
+  };
+
+  // challenge 19 in challenge19.mo
 
 };
