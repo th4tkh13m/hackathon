@@ -6,7 +6,7 @@ import Debug "mo:base/Debug";
 import Principal "mo:base/Principal";
 import HashMap "mo:base/HashMap";
 import Cycles "mo:base/ExperimentalCycles";
-
+import CycleInCanister "Hard";
 actor {
   public type Custom = Custom.Custom;
   public type Animal = Animal.Animal;
@@ -119,15 +119,18 @@ actor {
     return Cycles.add();
   };
 
-  //challenge17 in Hard1.mo
-  public func approve(p: Pricipal, amout: Nat) : async(){
-    Lib.addApprove(p, amout);
+  //challenge17 in Hard.mo
+  public func test() : async () {
+    Cycles.add(10000000000000);
+    let thisCanister = await Hard.CycleInCanister(10000000000);
+    let anonymous : Principal = Principal.fromText("2vxsx-fae");
+    await thisCanister.setApprove(anonymous,100000000);
+    await withdraw_cycles(thisCanister,anonymous,100000000);
   };
 
-  public func withdraw_cycles(p : Principal, amout : Nat) : async(){
-    Lib.withdraw(p, amout);
+  public func withdraw_cycles(thisCanister: Hard.CycleInCanister, p : Principal, amout : Nat) : async(){
+    await thisCanister.transferFrom(p, amout); 
   };
-
   //  Challenge18
   stable var counter = 0;
   stable var versionNumber = 0;
